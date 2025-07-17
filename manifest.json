@@ -1,0 +1,14 @@
+{
+    "manifest_version": 3,
+    "name": "aims iith captcha",
+    "version": "1.0",
+    "description": "Finds and fills captcha of AIMS IIT Hyderabad login page",
+    "content_scripts": [
+      {
+        "matches": ["https://aims.iith.ac.in/aims/",
+                    "https://aims.iith.ac.in/aims/login/loginHome"],
+        "js": ["contentScript.js"]
+      }
+    ]
+  }
+  
