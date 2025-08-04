@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AIMS Helper</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>AIMS Timetable Exporter</h1>
+            <div class="theme-switcher">
+                <input type="checkbox" id="theme-toggle">
+                <label for="theme-toggle" class="toggle-label">
+                    <svg class="sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,9A3,3,0,0,0,9,12A3,3,0,0,0,12,15A3,3,0,0,0,15,12A3,3,0,0,0,12,9M12,2A1,1,0,0,1,13,3V4A1,1,0,0,1,11,4V3A1,1,0,0,1,12,2M21,12A1,1,0,0,1,20,13H19A1,1,0,0,1,19,11H20A1,1,0,0,1,21,12M5,12A1,1,0,0,1,4,13H3A1,1,0,0,1,3,11H4A1,1,0,0,1,5,12M12,20A1,1,0,0,1,11,19V18A1,1,0,0,1,13,18V19A1,1,0,0,1,12,20M7.05,7.05A1,1,0,0,1,5.64,5.64L6.34,4.93A1,1,0,0,1,7.76,6.34L7.05,7.05M16.95,16.95A1,1,0,0,1,18.36,18.36L17.66,17.66A1,1,0,0,1,16.24,16.24L16.95,16.95M18.36,5.64A1,1,0,0,1,16.95,7.05L16.24,6.34A1,1,0,0,1,17.66,4.93L18.36,5.64M5.64,18.36A1,1,0,0,1,7.05,16.95L7.76,16.24A1,1,0,0,1,6.34,17.66L5.64,18.36Z"></path></svg>
+                    <svg class="moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,2A10,10,0,0,0,2,12A10,10,0,0,0,12,22A10,10,0,0,0,22,12A10,10,0,0,0,12,2C9.19,2,6.71,3.15,4.9,4.9C6.71,6.71,8.81,7.85,11,8C10.1,9.91,10.21,12.05,11.5,13.84C12.91,15.75,15.15,16.64,17.2,16.2C17.7,17.25,18,18.4,18,19.65C18,20.44,17.9,21.2,17.69,21.9C16.31,21.23,15,20.1,14,18.68C12.16,16.5,12.05,13.55,13.53,11.53C14.4,10.22,15.73,9.25,17.24,8.83C15.2,7.35,13.3,6.26,11.5,5.13C9.5,3.85,7.5,2.83,5.28,2.2C6.71,2.05,8.18,2,9.66,2C10.45,2,11.23,2.06,12,2.18V2Z"></path></svg>
+                    <span class="ball"></span>
+                </label>
+            </div>
+        </header>
+
+        <main id="main-content">
+            <button id="fetchCoursesBtn" class="button button-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C7.03 3 3 7.03 3 12S7.03 21 12 21S21 16.97 21 12S16.97 3 12 3ZM12 19C8.13 19 5 15.87 5 12C5 8.13 8.13 5 12 5C15.87 5 19 8.13 19 12C19 15.87 15.87 19 12 19ZM12.5 7H11V12L15.25 14.5L16 13.25L12.5 11.25V7Z"></path></svg>
+                <span>Fetch Courses from Page</span>
+            </button>
+            <div class="loader-container" id="loader">
+                <div class="loader"></div>
+                <span>Fetching data...</span>
+            </div>
+            <div class="controls-container" id="controls">
+                <div class="option-group">
+                    <label for="reminderTime">Reminder:</label>
+                    <select id="reminderTime" class="select-input">
+                        <option value="none" selected>None</option>
+                        <option value="5M">5 minutes before</option>
+                        <option value="10M">10 minutes before</option>
+                        <option value="30M">30 minutes before</option>
+                        <option value="1H">1 hour before</option>
+                    </select>
+                </div>
+                <div class="select-all-group">
+                    <input type="checkbox" id="selectAll">
+                    <label for="selectAll">Select All</label>
+                </div>
+            </div>
+            <div id="course-selection"></div>
+        </main>
+
+        <footer id="footer">
+            <button id="downloadBtn" class="button button-success">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M5 20H19V18H5V20ZM19 9H15V3H9V9H5L12 16L19 9Z"></path></svg>
+                <span>Download Selected as .ics</span>
+            </button>
+        </footer>
+    </div>
+    <script src="popup.js"></script>
+</body>
+</html>

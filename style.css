@@ -1,0 +1,148 @@
+:root {
+    --primary-color: #007bff;
+    --primary-hover: #0069d9;
+    --success-color: #28a745;
+    --success-hover: #218838;
+    
+    /* Light Mode Variables */
+    --background-color: #f4f6f9;
+    --card-background: #ffffff;
+    --text-color: #212529;
+    --secondary-text-color: #6c757d;
+    --border-color: #dee2e6;
+    --shadow: 0 2px 4px rgba(0,0,0,0.07);
+    --toggle-bg: #d0d0d0;
+}
+
+body.dark-mode {
+    /* Dark Mode Variables */
+    --background-color: #121212;
+    --card-background: #1e1e1e;
+    --text-color: #e0e0e0;
+    --secondary-text-color: #a0a0a0;
+    --border-color: #3a3a3a;
+    --shadow: 0 2px 4px rgba(0,0,0,0.3);
+    --toggle-bg: #4d4d4d;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    width: 420px;
+    margin: 0;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    transition: background-color 0.3s ease;
+}
+
+.container { padding: 16px; }
+
+/* Header */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border-color);
+}
+.header h1 { font-size: 1.1em; margin: 0; font-weight: 600; }
+
+/* New Theme Switcher */
+.theme-switcher input { display: none; }
+.toggle-label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    width: 50px;
+    height: 26px;
+    background: var(--toggle-bg);
+    border-radius: 26px;
+    position: relative;
+    transition: background-color .2s;
+}
+.toggle-label .ball {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #fff;
+    transition: transform .2s;
+}
+.theme-switcher input:checked + .toggle-label .ball {
+    transform: translateX(24px);
+}
+.toggle-label svg {
+    height: 18px;
+    width: 18px;
+    transition: opacity 0.2s ease-in-out;
+}
+.toggle-label .sun {
+    margin-left: 4px;
+    fill: #f39c12;
+    opacity: 1;
+}
+.toggle-label .moon {
+    margin-right: 4px;
+    fill: #f1c40f;
+    opacity: 0.5;
+}
+.theme-switcher input:checked + .toggle-label .sun { opacity: 0.5; }
+.theme-switcher input:checked + .toggle-label .moon { opacity: 1; }
+
+
+/* Buttons & Controls */
+.button {
+    width: 100%; padding: 10px; border: none; border-radius: 6px; font-size: 14px;
+    font-weight: 500; cursor: pointer; transition: background-color 0.2s;
+    display: flex; align-items: center; justify-content: center; gap: 8px; color: white;
+}
+.button svg { width: 18px; height: 18px; }
+.button-primary { background-color: var(--primary-color); }
+.button-primary:hover { background-color: var(--primary-hover); }
+.button-success { background-color: var(--success-color); }
+.button-success:hover { background-color: var(--success-hover); }
+
+.loader-container {
+    display: none; flex-direction: column; align-items: center; gap: 10px; margin: 20px 0;
+    color: var(--primary-color);
+}
+.loader {
+    border: 4px solid var(--card-background); border-top: 4px solid var(--primary-color);
+    border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite;
+}
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+#controls {
+    display: none; justify-content: space-between; align-items: center; margin-bottom: 12px;
+    padding: 10px; background-color: var(--card-background); border-radius: 6px;
+    border: 1px solid var(--border-color);
+}
+.option-group, .select-all-group { display: flex; align-items: center; gap: 6px; }
+label { font-size: 14px; color: var(--secondary-text-color); }
+.select-input {
+    padding: 4px; border-radius: 4px; border: 1px solid var(--border-color);
+    background-color: var(--background-color); color: var(--text-color);
+}
+
+/* Course List */
+#course-selection { max-height: 200px; overflow-y: auto; }
+.course-item {
+    display: flex; align-items: center; justify-content: space-between; padding: 8px;
+    border: 1px solid var(--border-color); border-radius: 6px; margin-bottom: 6px;
+    background-color: var(--card-background); box-shadow: var(--shadow);
+}
+.course-label-group {
+    display: flex; align-items: center; flex-grow: 1; white-space: normal; word-break: break-word;
+}
+.course-item input[type="checkbox"] { margin-right: 10px; width: 16px; height: 16px; flex-shrink: 0; }
+.course-item label { font-size: 14px; color: var(--text-color); }
+.venue-input {
+    width: 110px; padding: 4px; border: 1px solid var(--border-color); border-radius: 4px;
+    margin-left: 10px; flex-shrink: 0; font-size: 12px;
+    background-color: var(--background-color); color: var(--text-color);
+}
+
+#footer { display: none; margin-top: 12px; }
