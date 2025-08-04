@@ -1,13 +1,13 @@
 # How to Use This Extension
 
 ## Cloning the Repository
-1.  Run the following command to the Download extension:
+1.  Run the following command or press the green "code" button to the Download extension:
     ```
-    git clone https://github.com/Dilip3936/aims-iith-captcha.git
+    git clone https://github.com/Dilip3936/AIMS_Helper.git
     ```
 
 ## How to Load The Extension
-1. This extension has only been tested on Google Chrome.
+1. This extension has only been tested on Google Chrome but would work on all chromium based browsers.
 2. **Open the Chrome Extensions Page**
 	* Launch your Google Chrome browser.
 	* In the address bar, navigate to `chrome://extensions/` and press Enter.
@@ -16,10 +16,23 @@
 	* Turn this toggle **on**. This will reveal additional developer options, including the "Load unpacked" button.
 4. **Load Your Extension**
 	* Click the **"Load unpacked"** button that has now appeared.
-	* Navigate to the directory where you have saved your extension's files (the folder containing `manifest.json`, `contentScript.js`, etc.).
-	* Select the folder in which the files are present.
-5. After installing the extension it starts autofillig the captcha whenever the website is loaded
+	* Navigate to the directory where you have saved your extension's files (the folder containing `manifest.json`, `pupup.js`, etc.).
+	* Select the **folder** in which the files are present.
+5. After installing the extension it starts autofilling the captcha whenever the website is loaded
 
-## Editing the extension
+## Downloading the timetable
+1. Open the course Registration page and click on the extention.
+2. Select which courses to add and optionally add the venue and download the .ics file.
+### Android 
+	* Open the .ics file and then select the calender to add the events.
+### Web
+	* Go to calender website.
+	* Then settings>import&export > select the file and select import.
 
-* **Reloading Changes**: If you modify your extension's code, you must reload it for the changes to take effect. You can do this from the `chrome://extensions/` page.
+## Editing/Updating the extension
+
+* **Reloading Changes**: If you modify/Update your extension's code, you must reload it for the changes to take effect. You can do this from the `chrome://extensions/` page.
+
+
+## Known Bugs
+* When selecting the reminder as none, the calenders are choosing the defualt value as 30 mins. Thats not the issue with the extention but of the calender provider. You can manually turn off the reminder for the events in calender app.
