@@ -16,7 +16,7 @@
 	* Turn this toggle **on**. This will reveal additional developer options, including the "Load unpacked" button.
 4. **Load Your Extension**
 	* Click the **"Load unpacked"** button that has now appeared.
-	* Navigate to the directory where you have saved your extension's files (the folder containing `manifest.json`, `pupup.js`, etc.).
+	* Navigate to the directory where you have saved your extension's files (the folder containing `manifest.json`, `popup.js`, etc.).
 	* Select the **folder** in which the files are present.
 5. After installing the extension it starts autofilling the captcha whenever the website is loaded
 
@@ -24,10 +24,10 @@
 1. Open the course Registration page and click on the extention.
 2. Select which courses to add and optionally add the venue and download the .ics file.
 ### Android 
-	* Open the .ics file and then select the calender to add the events.
+* Open the .ics file and then select the calender to add the events.
 ### Web
-	* Go to calender website.
-	* Then settings>import&export > select the file and select import.
+* Go to calender website.
+* Then settings>import&export > select the file and select import.
 
 ## Editing/Updating the extension
 
