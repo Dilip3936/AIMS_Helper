@@ -1,38 +1,64 @@
-# How to Use This Extension
+# AIMS Helper
 
-## Cloning the Repository
-1.  Run the following command or press the green "code" button to the Download extension:
-    ```
+## Features
+
+* **Automatic CAPTCHA Solver**: Automatically fills in the CAPTCHA on the AIMS login page.
+* **Timetable Exporter**: Allows you to select your registered courses and download them as an `.ics` file, which can be imported into Google Calendar, Apple Calendar, and other calendar applications.
+* **GPA Viewer**: Clearly displays your SGPA and CGPA for each semester directly on your course history page.
+
+---
+
+## Installation
+
+### 1. Get the Code
+
+Run the following command or press the green "Code" button on the GitHub page to download the extension files.
+	```
     git clone https://github.com/Dilip3936/AIMS_Helper.git
     ```
 
-## How to Load The Extension
-1. This extension has only been tested on Google Chrome but would work on all chromium based browsers.
-2. **Open the Chrome Extensions Page**
-	* Launch your Google Chrome browser.
-	* In the address bar, navigate to `chrome://extensions/` and press Enter.
-3. **Enable Developer Mode**
-	* On the Extensions page, find the **"Developer mode"** toggle switch, usually located in the top-right corner.
-	* Turn this toggle **on**. This will reveal additional developer options, including the "Load unpacked" button.
-4. **Load Your Extension**
-	* Click the **"Load unpacked"** button that has now appeared.
-	* Navigate to the directory where you have saved your extension's files (the folder containing `manifest.json`, `popup.js`, etc.).
-	* Select the **folder** in which the files are present.
-5. After installing the extension it starts autofilling the captcha whenever the website is loaded
 
-## Downloading the timetable
-1. Open the course Registration page and click on the extention.
-2. Select which courses to add and optionally add the venue and download the .ics file.
-### Android 
-* Open the .ics file and then select the calender to add the events.
-### Web
-* Go to calender website.
-* Then settings>import&export > select the file and select import.
+### 2. Load The Extension
 
-## Editing/Updating the extension
+This extension has been tested on Google Chrome but should work on all Chromium-based browsers (like Microsoft Edge, Brave, etc.).
 
-* **Reloading Changes**: If you modify/Update your extension's code, you must reload it for the changes to take effect. You can do this from the `chrome://extensions/` page.
+1.  **Open the Chrome Extensions Page**
+    * Launch your Google Chrome browser.
+    * In the address bar, navigate to `chrome://extensions/` and press Enter.
+2.  **Enable Developer Mode**
+    * On the Extensions page, find the **"Developer mode"** toggle switch, usually located in the top-right corner.
+    * Turn this toggle **on**. This will reveal additional options, including the "Load unpacked" button.
+3.  **Load Your Extension**
+    * Click the **"Load unpacked"** button.
+    * Navigate to the directory where you saved the extension's files (the folder containing `manifest.json`).
+    * Select the folder to install the extension.
 
+---
+
+## Usage
+
+### Autofilling CAPTCHA
+
+After installing the extension, it will automatically start filling the CAPTCHA whenever the AIMS login page is loaded.
+
+### Downloading Your Timetable
+
+1.  Open the AIMS course registration page and click on the extension's icon in your browser's toolbar.
+2.  Select the courses you wish to export, optionally add the venue for each course, and download the `.ics` file.
+
+#### **Importing to Your Calendar:**
+
+* **Android**: Open the `.ics` file and select your calendar app to add the events.
+* **Web (Google Calendar, etc.)**: Go to your calendar's website, find **Settings > Import & Export**, and select the downloaded `.ics` file to import.
+
+---
+
+## Editing/Updating the Extension
+
+If you modify or update the extension's code, you must reload it for the changes to take effect. You can do this from the `chrome://extensions/` page by clicking the reload icon on the extension's card.
+
+---
 
 ## Known Bugs
-* When selecting the reminder as none, the calenders are choosing the defualt value as 30 mins. Thats not the issue with the extention but of the calender provider. You can manually turn off the reminder for the events in calender app.
+
+* When selecting "None" for a reminder, some calendar applications may still set a default reminder (e.g., 30 minutes). This is not an issue with the extension but is the default behavior of the calendar provider. You can manually turn off the reminder for the events in your calendar app.

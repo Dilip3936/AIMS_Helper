@@ -7,27 +7,24 @@ document.addEventListener('DOMContentLoaded', () => {
     const themeToggle = document.getElementById('theme-toggle');
 
     // --- Dark Mode Logic ---
-    // Function to apply the theme
     const applyTheme = (isDark) => {
-        if (isDark) {
-            document.body.classList.add('dark-mode');
-            themeToggle.checked = true;
-        } else {
-            document.body.classList.remove('dark-mode');
-            themeToggle.checked = false;
-        }
-    };
+    if (isDark) {
+        document.body.classList.add('dark-mode');
+        themeToggle.checked = true;
+    } else {
+        document.body.classList.remove('dark-mode');
+        themeToggle.checked = false;
+    }
+};
 
-    // Check localStorage for a saved theme preference
-    const savedTheme = localStorage.getItem('theme');
-    applyTheme(savedTheme === 'dark');
+const savedTheme = localStorage.getItem('theme');
+applyTheme(savedTheme !== 'light');
 
-    // Listener for the toggle switch
-    themeToggle.addEventListener('change', () => {
-        const isDark = themeToggle.checked;
-        localStorage.setItem('theme', isDark ? 'dark' : 'light');
-        applyTheme(isDark);
-    });
+themeToggle.addEventListener('change', () => {
+    const isDark = themeToggle.checked;
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    applyTheme(isDark);
+});
     // --- End Dark Mode Logic ---
 
     // Event listener for the "Fetch" button
@@ -247,6 +244,6 @@ function displayCoursesForSelection(data) {
         controls.style.display = 'flex';
         footer.style.display = 'block';
     } else {
-        selectionDiv.textContent = 'No valid schedules found to export.';
+        selectionDiv.textContent = 'Make sure you are on the course registration page.';
     }
 }
