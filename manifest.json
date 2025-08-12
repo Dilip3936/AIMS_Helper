@@ -20,7 +20,7 @@
     },
     {
       "matches": [
-        "https://aims.iith.ac.in/aims/courseReg/myCrsHistoryPage"
+        "https://aims.iith.ac.in/aims/courseReg/myCrsHistoryPage*"
       ],
       "js": ["gpa_inject.js"]
     }
