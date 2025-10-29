@@ -5,7 +5,7 @@
 * **Automatic CAPTCHA Solver**: Automatically fills in the CAPTCHA on the AIMS login page.
 * **Timetable Exporter**: Allows you to select your registered courses and download them as an `.ics` file, which can be imported into Google Calendar, Apple Calendar, and other calendar applications.
 * **GPA Viewer**: Clearly displays your SGPA and CGPA for each semester directly on your course history page.
-
+* **View Grades without feedback**: Shows your grades of courses without feedback directly on the page.
 ---
 
 ## Installation
@@ -51,6 +51,10 @@ After installing the extension, it will automatically start filling the CAPTCHA 
 
 * **Android**: Open the `.ics` file and select your calendar app to add the events.
 * **Web (Google Calendar, etc.)**: Go to your calendar's website, find **Settings > Import & Export**, and select the downloaded `.ics` file to import.
+
+### **Viewing grades of courses without feedback:**
+
+* click the fetch all grades button and refresh the page.
 
 ---
 

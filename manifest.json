@@ -1,30 +1,44 @@
 {
   "manifest_version": 3,
   "name": "AIMS Helper",
-  "version": "3.0",
-  "description": "Autofills CAPTCHA on the login page and exports course timetables to your calendar and shows your GPA.",
-  "permissions": [
-    "activeTab",
-    "scripting"
-  ],
+  "version": "4",
+  "description": "Autofills CAPTCHA on the login page, shows GPA, gets grades without feedback, and can export timetables.",
   "action": {
+    "default_title": "AIMS Helper",
     "default_popup": "popup.html"
   },
+
+  "permissions": [
+    "storage",
+    "scripting",
+    "activeTab"
+  ],
+  "host_permissions": [
+    "https://aims.iith.ac.in/*"
+  ],
+
+  "background": {
+    "service_worker": "sw.js"
+  },
+
   "content_scripts": [
     {
       "matches": [
         "https://aims.iith.ac.in/aims/",
         "https://aims.iith.ac.in/aims/login/loginHome"
       ],
-      "js": ["captcha.js"]
+      "js": ["captcha.js"],
+      "run_at": "document_idle"
     },
     {
       "matches": [
         "https://aims.iith.ac.in/aims/courseReg/myCrsHistoryPage*"
       ],
-      "js": ["gpa_inject.js"]
+      "js": ["gpa_inject.js", "content.js"],
+      "run_at": "document_idle"
     }
   ],
+
   "web_accessible_resources": [
     {
       "resources": ["gpa_display.js"],

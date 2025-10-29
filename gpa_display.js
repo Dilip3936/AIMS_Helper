@@ -24,36 +24,56 @@
     }
 
     function displayGpaData() {
-        if (!gpaDataCache || !Array.isArray(gpaDataCache)) return;
+    if (!gpaDataCache || !Array.isArray(gpaDataCache)) return;
 
-        const semesterHeaders = document.querySelectorAll('.hierarchyHdr.changeHdrCls');
-        const normalizeText = (str) => str.toUpperCase().replace(/[^A-Z0-9]/g, '');
+    const semesterHeaders = document.querySelectorAll('.hierarchyHdr.changeHdrCls');
+    const normalizeText = (str) => String(str || "").toUpperCase().replace(/[^A-Z0-9]/g, '');
 
-        for (const gpa of gpaDataCache) {
-            if (!gpa || !gpa.periodName) continue;
+    for (const gpa of gpaDataCache) {
+        if (!gpa || !gpa.periodName) continue;
 
-            const gpaSemesterText = normalizeText(gpa.periodName);
+        const gpaSemesterText = normalizeText(gpa.periodName);
 
-            for (const header of semesterHeaders) {
-                const headerTextElement = header.querySelector('div.col');
-                
-                if (headerTextElement) {
-                    const pageSemesterText = normalizeText(headerTextElement.textContent);
+        for (const header of semesterHeaders) {
+            const headerTextElement = header.querySelector('div.col');
+            if (!headerTextElement) continue;
 
-                    if (pageSemesterText === gpaSemesterText) {
-                        if (!header.querySelector('.gpa-info-span')) {
-                            const gpaSpan = document.createElement('span');
-                            gpaSpan.className = 'gpa-info-span';
-                            gpaSpan.innerHTML = `&nbsp; (SGPA: <b>${gpa.sgpa}</b>, CGPA: <b>${gpa.cgpa}</b>)`;
-                            gpaSpan.style.cssText = 'color: #0056b3; font-weight: normal;';
-                            headerTextElement.appendChild(gpaSpan);
-                        }
-                        break; 
-                    }
-                }
+            const pageSemesterText = normalizeText(headerTextElement.textContent);
+            if (pageSemesterText !== gpaSemesterText) continue;
+
+            // Append GPA info if missing
+            if (!header.querySelector('.gpa-info-span')) {
+                const gpaSpan = document.createElement('span');
+                gpaSpan.className = 'gpa-info-span';
+                gpaSpan.innerHTML = `&nbsp; (SGPA: <b>${gpa.sgpa}</b>, CGPA: <b>${gpa.cgpa}</b>)`;
+                gpaSpan.style.cssText = 'color: #0056b3; font-weight: normal;';
+                headerTextElement.appendChild(gpaSpan);
             }
+
+            // Compute and append Credits once
+            if (!header.querySelector('.credits-info-span')) {
+                // Collect following sibling rows until next semester header or end
+                let credits = 0;
+                let li = header.nextElementSibling;
+                while (li && !li.classList.contains('hierarchyHdr')) {
+                    if (li.classList.contains('dataLi')) {
+                        const crEl = li.querySelector('span.col3.col');
+                        const val = crEl ? parseFloat(crEl.textContent) : NaN;
+                        if (!Number.isNaN(val)) credits += val;
+                    }
+                    li = li.nextElementSibling;
+                }
+
+                const crSpan = document.createElement('span');
+                crSpan.className = 'credits-info-span';
+                crSpan.innerHTML = `&nbsp; <span style="color:#0f766e;">Credits: <b>${credits}</b></span>`;
+                headerTextElement.appendChild(crSpan);
+            }
+
+            break; // matched this semester header; move to next GPA entry
         }
     }
+}
 
     // --- Interceptor for XMLHttpRequest (XHR) ---
     const originalXhrOpen = XMLHttpRequest.prototype.open;
