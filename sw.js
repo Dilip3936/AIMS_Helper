@@ -87,7 +87,7 @@ async function fetchHistory({ studentId, gradeId }) {
 }
 async function runGradeFetch(studentId) {
   await fetchAndStoreGradeCatalog(studentId);
-  for (let i = 1; i <= 10; i++) {
+  for (let i = 1; i <= 16; i++) {
     try {
       await fetchHistory({ studentId, gradeId: i });
     } catch (e) {
@@ -96,7 +96,6 @@ async function runGradeFetch(studentId) {
   }
 }
 
-// Replace the action click trigger with message trigger
 chrome.runtime.onMessage.addListener((msg, _sender, sendResponse) => {
   if (msg && msg.type === "RUN_GRADE_FETCH" && msg.studentId) {
     runGradeFetch(String(msg.studentId))
@@ -105,6 +104,6 @@ chrome.runtime.onMessage.addListener((msg, _sender, sendResponse) => {
         console.error("grade fetch run failed", err);
         sendResponse({ ok: false, error: String(err) });
       });
-    return true; // keep the message channel open for async response
+    return true; 
   }
 });

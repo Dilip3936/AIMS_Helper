@@ -14,9 +14,9 @@
 
 Run the following command or press the green "Code" button on the GitHub page to download the extension files.
 
-	```
+```
     git clone https://github.com/Dilip3936/AIMS_Helper.git
-    ```
+```
 
 
 ### 2. Load The Extension
