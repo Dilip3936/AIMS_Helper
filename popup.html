@@ -25,10 +25,17 @@
                 <span>Export Time Table</span>
             </button>
             
-            <button id="fetchGradesBtn" class="button button-secondary" style="margin-top:8px;">
+            <button id="fetchGradesBtn" class="button button-primary" style="margin-top:8px;">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L8 6h3v6h2V6h3l-4-4zm-7 18h14v-2H5v2z"/></svg>
                 <span>Fetch All Grades</span>
             </button>
+
+            <button id="submitFeedbackBtn" class="button button-primary" style="margin-top:8px;">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4C2.9 2 2 2.9 2 4V22L6 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2ZM20 16H5.17L4 17.17V4H20V16ZM11 12H13V14H11V12ZM11 5H13V10H11V5Z"></path></svg>
+                <span>Submit Feedback</span>
+            </button>
+            <div id="status"></div>
+
             <div class="loader-container" id="loader">
                 <div class="loader"></div>
                 <span>Fetching data...</span>

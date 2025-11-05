@@ -147,45 +147,17 @@ label { font-size: 14px; color: var(--secondary-text-color); }
 
 #footer { display: none; margin-top: 12px; }
 
-/* Fetch Grades secondary button */
-#fetchGradesBtn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 14px;
-  border-radius: 8px;
-  border: 1px solid transparent;
-  background: #6b7280;        /* gray-500 */
-  color: #ffffff;
-  cursor: pointer;
-  transition: background-color .15s ease, transform .06s ease, box-shadow .15s ease;
-}
+#status {
+            margin-top: var(--space-16);
+            padding: var(--space-12);
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-base);
+            font-size: 13px;
+            line-height: 1.5;
+            display: none;
+        }
 
-#fetchGradesBtn svg {
-  width: 18px;
-  height: 18px;
-}
-
-#fetchGradesBtn:hover {
-  background: #4b5563;        /* gray-600 */
-}
-
-#fetchGradesBtn:active {
-  transform: translateY(1px);
-}
-
-#fetchGradesBtn:focus-visible {
-  outline: 2px solid #94a3b8; /* slate-300 outline */
-  outline-offset: 2px;
-}
-
-/* Dark mode override */
-.dark-mode #fetchGradesBtn {
-  background: #4b5563;        /* gray-600 */
-  color: #e5e7eb;
-  border-color: #374151;
-}
-
-.dark-mode #fetchGradesBtn:hover {
-  background: #374151;        /* gray-700 */
-}
+        #status.show {
+            display: block;
+        }

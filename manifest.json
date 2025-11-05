@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "AIMS Helper",
   "version": "4",
-  "description": "Autofills CAPTCHA on the login page, shows GPA, gets grades without feedback, and can export timetables.",
+  "description": "Autofills CAPTCHA on the login page, shows GPA, gets grades without feedback, submits feedback with one click and can export timetables.",
   "action": {
     "default_title": "AIMS Helper",
     "default_popup": "popup.html"

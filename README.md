@@ -2,10 +2,12 @@
 
 ## Features
 
+* **View Grades without feedback**: Shows your grades of courses without feedback directly on the page.
+* **Submits feedback with single click**: Submits feedback for all courses with a single click.
 * **Automatic CAPTCHA Solver**: Automatically fills in the CAPTCHA on the AIMS login page.
 * **Timetable Exporter**: Allows you to select your registered courses and download them as an `.ics` file, which can be imported into Google Calendar, Apple Calendar, and other calendar applications.
 * **GPA Viewer**: Clearly displays your SGPA and CGPA for each semester directly on your course history page.
-* **View Grades without feedback**: Shows your grades of courses without feedback directly on the page.
+
 ---
 
 ## Installation
@@ -15,7 +17,7 @@
 Run the following command or press the green "Code" button on the GitHub page to download the extension files.
 
 ```
-    git clone https://github.com/Dilip3936/AIMS_Helper.git
+git clone https://github.com/Dilip3936/AIMS_Helper.git
 ```
 
 
@@ -38,6 +40,14 @@ This extension has been tested on Google Chrome but should work on all Chromium-
 
 ## Usage
 
+### **Viewing grades of courses without feedback:**
+
+* click the fetch all grades button and refresh the page.
+
+### **Submitting feedback**
+
+* Go to the course history page and click on submit feedback.
+
 ### Autofilling CAPTCHA
 
 After installing the extension, it will automatically start filling the CAPTCHA whenever the AIMS login page is loaded.
@@ -52,15 +62,17 @@ After installing the extension, it will automatically start filling the CAPTCHA 
 * **Android**: Open the `.ics` file and select your calendar app to add the events.
 * **Web (Google Calendar, etc.)**: Go to your calendar's website, find **Settings > Import & Export**, and select the downloaded `.ics` file to import.
 
-### **Viewing grades of courses without feedback:**
-
-* click the fetch all grades button and refresh the page.
-
 ---
 
 ## Editing/Updating the Extension
 
 If you modify or update the extension's code, you must reload it for the changes to take effect. You can do this from the `chrome://extensions/` page by clicking the reload icon on the extension's card.
+
+---
+
+## Note:
+
+* **This extension is not related to Lambda (IITH) nor the admin department of IITH.**
 
 ---
 
