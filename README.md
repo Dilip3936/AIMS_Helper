@@ -6,7 +6,7 @@
 * **Submits feedback with single click**: Submits feedback for all courses with a single click.
 * **Automatic CAPTCHA Solver**: Automatically fills in the CAPTCHA on the AIMS login page.
 * **Timetable Exporter**: Allows you to select your registered courses and download them as an `.ics` file, which can be imported into Google Calendar, Apple Calendar, and other calendar applications.
-* **GPA Viewer**: Clearly displays your SGPA and CGPA for each semester directly on your course history page.
+* **GPA Viewer**: Clearly displays your SGPA and CGPA (from database) for each semester directly on your course history page.
 
 ---
 
@@ -39,6 +39,8 @@ This extension has been tested on Google Chrome but should work on all Chromium-
 ---
 
 ## Usage
+
+* All these buttons are available after clicking on the extension from the extensions list.
 
 ### **Viewing grades of courses without feedback:**
 
@@ -78,4 +80,4 @@ If you modify or update the extension's code, you must reload it for the changes
 
 ## Known Bugs
 
-* When selecting "None" for a reminder, some calendar applications may still set a default reminder (e.g., 30 minutes). This is not an issue with the extension but is the default behavior of the calendar provider. You can manually turn off the reminder for the events in your calendar app.
+* When selecting "None" for a reminder, some calendar applications may still set a default reminder (e.g., 30 minutes). This is not an issue with the extension but is the default behavior of the calendar provider. You can manually turn off the reminder for the events in your calendar app. The google calender allows you set defualt notification time to none which should solve the issue.
