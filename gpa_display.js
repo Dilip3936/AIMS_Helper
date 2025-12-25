@@ -39,8 +39,10 @@
             while (li && !li.classList.contains('hierarchyHdr')) {
                 if (li.classList.contains('dataLi')) {
                     const crEl = li.querySelector('span.col3.col');
+                    const electiveType = li.querySelector('span.col5.col');
+                    const isAdditional =  electiveType.textContent.includes("Additional");
                     const val = crEl ? parseFloat(crEl.textContent) : NaN;
-                    if (!Number.isNaN(val)) credits += val;
+                    if (!Number.isNaN(val)&& !isAdditional) credits += val;
                 }
                 li = li.nextElementSibling;
             }
