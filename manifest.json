@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "AIMS Helper",
-  "version": "5",
+  "version": "6",
   "description": "Autofills CAPTCHA on the login page, shows GPA, gets grades without feedback, submits feedback with one click and can export timetables.",
   "action": {
     "default_title": "AIMS Helper",
@@ -10,6 +10,7 @@
 
   "permissions": [
     "storage",
+    "tabs",
     "scripting",
     "activeTab"
   ],
@@ -41,7 +42,11 @@
 
   "web_accessible_resources": [
     {
-      "resources": ["gpa_display.js"],
+      "resources": [
+        "gpa_display.js",
+        "gpa_report.html",
+        "jspdf.umd.min.js",
+        "html2canvas.min.js"],
       "matches": ["https://aims.iith.ac.in/*"]
     }
   ]

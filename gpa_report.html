@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AIMS GPA Report</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #fafbfc;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      min-height: 100vh; padding: 40px 20px; line-height: 1.6;
+    }
+    .report {
+      max-width: 920px; margin: 0 auto; background: #ffffff;
+      border-radius: 16px; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 8px 24px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+    }
+    .header {
+      background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+      padding: 48px 40px; display: flex; align-items: center; gap: 32px;
+      position: relative; overflow: hidden;
+    }
+    .header::before {
+      content: ''; position: absolute; top: 0; right: 0; width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+      border-radius: 50%; transform: translate(30%, -30%);
+    }
+    .profile-photo {
+      width: 110px; height: 110px; border-radius: 12px; object-fit: cover;
+      border: 3px solid rgba(255, 255, 255, 0.15); box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+      position: relative; z-index: 1; background: #374151;
+    }
+    .student-info { position: relative; z-index: 1; }
+    .student-info h1 { font-size: 32px; font-weight: 600; margin-bottom: 8px; color: #ffffff; letter-spacing: -0.5px; }
+    .student-info p { font-size: 15px; opacity: 0.8; margin: 6px 0; color: #ffffff; }
+    
+    .content { padding: 48px 40px; }
+    .section { margin-bottom: 48px; }
+    .section-title { font-size: 22px; font-weight: 600; color: #1a1a1a; margin-bottom: 24px; letter-spacing: -0.3px; }
+
+    /* Controls Bar */
+    .controls-bar {
+      display: flex; gap: 10px; margin-bottom: 16px; align-items: center; justify-content: space-between; flex-wrap: wrap;
+    }
+    .controls-group { display: flex; gap: 8px; flex-wrap: wrap; }
+    .controls-bar input {
+      padding: 8px 12px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 14px; outline: none;
+    }
+    .controls-bar input:focus { border-color: #a855f7; }
+    .action-btn {
+      padding: 8px 16px; background: #f3f4f6; color: #374151; border: 1px solid #d1d5db;
+      border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer; transition: background 0.2s;
+    }
+    .action-btn:hover { background: #e5e7eb; }
+    .danger-btn { color: #dc2626; background: #fef2f2; border-color: #fecaca; }
+    .danger-btn:hover { background: #fee2e2; }
+    .success-btn { color: #059669; background: #ecfdf5; border-color: #a7f3d0; }
+    .success-btn:hover { background: #d1fae5; }
+
+    /* Editable Fields Styles */
+    .editable-input {
+      width: 100%; border: 1px dashed transparent; background: transparent; padding: 4px 6px;
+      border-radius: 4px; font-family: inherit; font-size: inherit; color: inherit;
+      transition: all 0.2s; cursor: pointer; appearance: none; -webkit-appearance: none;
+    }
+    .editable-input:hover, .editable-input:focus {
+      border-color: #a855f7; background: #fff; box-shadow: 0 0 0 2px rgba(168, 85, 247, 0.1); outline: none;
+    }
+    select.editable-input {
+      background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%22//www.w3.org/2000/svg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%236b7280%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 8px top 50%; background-size: 8px auto; padding-right: 24px;
+    }
+    select optgroup { font-style: normal; font-weight: 600; color: #9ca3af; }
+    select option { font-weight: normal; color: #111827; }
+
+    table { width: 100%; border-collapse: separate; border-spacing: 0; margin-bottom: 20px; border: 1px solid #e8e8e8; border-radius: 10px; overflow: hidden; }
+    thead { background: #f8f9fa; }
+    th { padding: 16px 20px; text-align: left; font-size: 13px; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid #e8e8e8; }
+    td { padding: 12px 20px; color: #374151; border-bottom: 1px solid #f3f4f6; font-size: 15px; }
+    tbody tr { transition: all 0.2s ease; }
+    tbody tr:hover:not(.dragging) { background-color: #f9fafb; }
+    tbody tr:last-child td { border-bottom: none; }
+
+    .grade-badge {
+      display: inline-block; border-radius: 6px; font-weight: 600; font-size: 13px; letter-spacing: 0.3px; text-align: center; width: 60px;
+    }
+    .grade-badge.ungraded { background: #e5e7eb; color: #6b7280; }
+    .grade-badge.graded { background: #f3f4f6; color: #374151; }
+
+    #summary-table { border: none; background: #f9fafb; border-radius: 10px; }
+    #summary-table td { border: none; padding: 16px 20px; }
+    #summary-table td:first-child { font-weight: 500; color: #6b7280; }
+    #summary-table td:nth-child(2), #summary-table td:nth-child(3) { font-weight: 600; color: #1a1a1a; text-align: right; }
+    #summary-table tr:not(:last-child) td { border-bottom: 1px solid #e8e8e8; }
+
+    /* Drag and Drop Styles */
+    .drag-handle { cursor: grab; padding-right: 12px; color: #9ca3af; font-size: 18px; user-select: none; }
+    .drag-handle:active { cursor: grabbing; }
+    .type-row.dragging { opacity: 0.4; background-color: #e5e7eb; }
+    .type-row.drag-over-top td { border-top: 2px solid #a855f7 !important; }
+    .type-row.drag-over-bottom td { border-bottom: 2px solid #a855f7 !important; }
+
+    /* Bottom Buttons */
+    .btn-container { display: flex; gap: 16px; padding: 0 40px; margin-bottom: 40px; flex-wrap: wrap; }
+    .main-btn {
+      flex: 1; min-width: 200px; padding: 16px 24px; border: none; border-radius: 10px;
+      font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; text-align: center; color: white;
+    }
+    .btn-dark { background: #1a1a1a; }
+    .btn-dark:hover { background: #2d2d2d; transform: translateY(-2px); box-shadow: 0 8px 16px rgba(0,0,0,0.15); }
+    .btn-gray { background: #4b5563; }
+    .btn-gray:hover { background: #374151; transform: translateY(-2px); box-shadow: 0 8px 16px rgba(0,0,0,0.15); }
+    .btn-outline { background: transparent; color: #1a1a1a; border: 2px solid #1a1a1a; }
+    .btn-outline:hover { background: #f3f4f6; transform: translateY(-2px); }
+
+    .report-footer { background: #ffffff; border-top: 1px solid #f0f0f0; padding: 16px 40px; margin-top: 0; text-align: center; }
+    .footer-text { font-size: 11px; color: #6b7280; font-weight: 400; }
+    .footer-link { color: #6b7280; text-decoration: none; font-weight: 500; transition: color 0.2s; }
+    .footer-link:hover { color: #1a1a1a; text-decoration: underline; }
+  </style>
+</head>
+
+<body>
+  <div class="report">
+    <header class="header">
+      <img id="photo" class="profile-photo" src="" alt="" style="display: none;" />
+      <div class="student-info">
+        <h1 id="student-name">Loading...</h1>
+        <p id="rollno"></p>
+        <p id="branch"></p>
+      </div>
+    </header>
+
+    <div class="content">
+      <section class="section">
+        <div class="controls-bar" id="controls-bar">
+          <div class="controls-group">
+            <button id="undoBtn" class="action-btn">↺ Undo</button>
+            <button id="applySuggestionsBtn" class="action-btn success-btn">Apply Suggestions</button>
+            <button id="resetBtn" class="action-btn danger-btn">Reset Edits</button>
+            <button id="clearAllBtn" class="action-btn danger-btn">🗑️ Clear</button>
+          </div>
+          <div class="controls-group">
+            <input type="text" id="new-type-input" placeholder="Custom Course Type" />
+            <button id="add-type-btn" class="action-btn">Add Type</button>
+          </div>
+        </div>
+
+        <table id="grades-table">
+          <thead>
+            <tr>
+              <th>Course Code</th>
+              <th>Course Name</th>
+              <th>Type</th>
+              <th style="width: 80px;">Credits</th>
+              <th style="width: 100px;">Grade</th>
+            </tr>
+          </thead>
+          <tbody id="courses"></tbody>
+        </table>
+      </section>
+
+      <section class="section" id="summary-section" style="display: none;">
+        <h2 class="section-title" id="summary-section-title">Academic Summary</h2>
+        <table id="summary-table">
+          <tbody id="summary-body"></tbody>
+        </table>
+      </section>
+    </div>
+
+    <input type="file" id="upload-html" accept=".html" style="display: none;" />
+    <input type="file" id="import-config-file" accept=".json" style="display: none;" />
+
+    <div class="btn-container" id="bottom-controls">
+      <button class="main-btn btn-gray" id="uploadBtn">📄 Update Base HTML Report</button>
+      <button class="main-btn btn-outline" id="importConfigBtn">📥 Import Template</button>
+      <button class="main-btn btn-outline" id="exportConfigBtn">📤 Export Template</button>
+      <button class="main-btn btn-dark" id="downloadBtn">⬇️ Download PDF</button>
+    </div>
+
+
+  <script src="jspdf.umd.min.js"></script>
+  <script src="html2canvas.min.js"></script>
+  <script src="gpa_report.js"></script>
+</body>
+</html>
