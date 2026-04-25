@@ -31,56 +31,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   let degreeData = {};
   let creditSummaryByDegree = {};
 
-  const gradePoints = { "A+": 10, "A": 10, "A-": 9, "B+": 8, "B": 8, "B-": 7, "C+": 6, "C": 6, "C-": 5, "D": 4, "P": 2, "U": 0, "F": 0, "W": 0, "I": 0 };
-  const allowedGrades = ["", "A+", "A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D", "P", "U", "F", "W", "I"];
-
-  // --- HTML Parsing (Overwrites Base Data, Keeps Edits) ---
-  async function handleFileUpload(event) {
-    const file = event.target.files[0];
-    if (!file) return;
-
-    const reader = new FileReader();
-    reader.onload = async (e) => {
-      const doc = new DOMParser().parseFromString(e.target.result, "text/html");
-
-      const newStudentData = {
-        name: doc.getElementById("student-name")?.textContent.trim() || aimsStudentData?.name || "",
-        rollno: doc.getElementById("rollno")?.textContent.trim() || aimsStudentData?.rollno || "",
-        branch: doc.getElementById("branch")?.textContent.trim() || aimsStudentData?.branch || "",
-        photo: doc.getElementById("photo")?.src || aimsStudentData?.photo || ""
-      };
-
-      let currentSemester = "Unknown";
-      let currentDegree = "Unspecified Degree";
-      let newAimsGpaData = [];
-
-      doc.querySelectorAll("#courses tr").forEach(row => {
-        if (row.children.length === 1 && row.querySelector('td[colspan="5"]')) {
-          const spans = row.querySelectorAll('span');
-          if (spans.length >= 2) {
-            currentSemester = spans[0].textContent.split('—')[0].trim();
-            currentDegree = spans[1].textContent.trim();
-          }
-        } else if (row.children.length >= 5) {
-          const type = row.children[2].querySelector('select') ? row.children[2].querySelector('select').value : row.children[2].textContent.trim();
-          newAimsGpaData.push({
-            courseCd: row.children[0].textContent.trim(),
-            courseName: row.children[1].textContent.trim(),
-            courseElectiveTypeDesc: type,
-            credits: row.children[3].querySelector('input') ? row.children[3].querySelector('input').value : row.children[3].textContent.trim(),
-            gradeDesc: row.children[4].querySelector('select') ? row.children[4].querySelector('select').value : row.children[4].textContent.trim(),
-            periodName: currentSemester,
-            degreeName: currentDegree
-          });
-        }
-      });
-
-      await storage.set({ aimsGpaData: newAimsGpaData, aimsStudentData: newStudentData });
-      window.location.reload();
-    };
-    reader.readAsText(file);
-    event.target.value = "";
-  }
+  const gradePoints = { "A+": 10, "A": 10, "A-": 9, "B": 8, "B-": 7, "C": 6, "C-": 5, "D": 4, "P": 2, "U": 0, "F": 0, "W": 0, "I": 0 };
+  const allowedGrades = ["", "A+", "A", "A-", "B", "B-", "C", "C-", "D", "P", "U", "F", "W", "I"];
 
   // --- Data Processing ---
   async function processData() {
@@ -140,7 +92,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         photoEl.style.display = 'block';
       }
     } else {
-      document.getElementById("student-name").textContent = "No Data - Please Update Base HTML";
+      document.getElementById("student-name").textContent = "No Data - Please open from AIMS portal";
       document.getElementById("rollno").textContent = "";
       document.getElementById("branch").textContent = "";
       photoEl.style.display = 'none';
@@ -213,7 +165,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // --- Apply All Suggestions ---
   document.getElementById("applySuggestionsBtn").addEventListener("click", async () => {
     if (Object.keys(suggestedCourseTypes).length === 0) {
-      alert("There are no suggested courses in your template.");
+      alert("There are no suggested courses in your Curriculum.");
       return;
     }
 
@@ -255,7 +207,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 
   document.getElementById("clearAllBtn").addEventListener("click", async () => {
-    if (!confirm("⚠️ WARNING: Are you sure you want to delete ALL data? This will permanently remove your imported report, all manual edits, configurations, and reset the page to a blank state. This CANNOT be undone.")) return;
+    if (!confirm("⚠️ WARNING: Are you sure you want to delete ALL data? This will permanently remove your data, all manual edits, configurations, and reset the page to a blank state. This CANNOT be undone.")) return;
     
     aimsGpaData = []; aimsStudentData = null; courseOverrides = {};
     customCourseTypes = []; requiredCreditsConfig = {}; customTypeOrder = [];
@@ -282,7 +234,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const blob = new Blob([JSON.stringify(config, null, 2)], {type: "application/json"});
     const a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
-    a.download = "AIMS_Batch_Template.json";
+    a.download = "AIMS_Batch_Curriculum.json";
     a.click();
   });
 
@@ -300,7 +252,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         if(config.suggestedCourseTypes) suggestedCourseTypes = config.suggestedCourseTypes;
         await storage.set({ customCourseTypes, requiredCreditsConfig, customTypeOrder, suggestedCourseTypes });
         window.location.reload();
-      } catch(err) { alert("Invalid template file."); }
+      } catch(err) { alert("Invalid Curriculum file."); }
     };
     reader.readAsText(file);
     e.target.value = "";
@@ -311,7 +263,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const tbody = document.getElementById("courses");
     tbody.innerHTML = "";
     if (allCourses.length === 0) {
-      tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; padding: 30px; color: #6b7280;">No data found. Please upload a report.</td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; padding: 30px; color: #6b7280;">No data found. Please open this report via the AIMS Helper extension on your course history page.</td></tr>`;
       return;
     }
 
@@ -426,12 +378,43 @@ document.addEventListener("DOMContentLoaded", async () => {
           <td><span class="drag-handle hide-print">≡</span>${type}</td>
           <td>${total.toFixed(1)}</td>
           <td><input type="number" step="0.5" min="0" class="editable-input target-credit-input" style="width: 60px; font-weight: 600; text-align: right; border: 1px solid #e5e7eb; border-radius: 4px; padding: 2px 4px;" data-type="${type}" value="${req}" placeholder="—" /></td>
-          <td class="hide-print"></td>
+          <td class="hide-print" style="text-align: center;">
+            ${total === 0 ? `<button class="action-btn remove-type-btn" style="padding: 2px 6px; font-size: 11px; color: #dc2626; background: #fef2f2; border-color: #fecaca; min-width: 24px;" data-type="${type}" title="Remove Type">✖</button>` : ''}
+          </td>
         </tr>`;
       });
     });
 
     document.querySelectorAll(".target-credit-input").forEach(input => input.addEventListener("change", handleTargetCreditsEdit));
+    
+    // Type Removal Logic
+    document.querySelectorAll(".remove-type-btn").forEach(btn => {
+      btn.addEventListener("click", async (e) => {
+        const typeToRemove = e.target.dataset.type;
+        if(confirm(`Are you sure you want to completely remove the "${typeToRemove}" category?`)) {
+          customCourseTypes = customCourseTypes.filter(t => t !== typeToRemove);
+          customTypeOrder = customTypeOrder.filter(t => t !== typeToRemove);
+          availableTypes = availableTypes.filter(t => t !== typeToRemove);
+          delete requiredCreditsConfig[typeToRemove];
+
+          let overridesChanged = false;
+          Object.keys(courseOverrides).forEach(key => {
+            if(courseOverrides[key].courseElectiveTypeDesc === typeToRemove) {
+               delete courseOverrides[key].courseElectiveTypeDesc;
+               overridesChanged = true;
+            }
+          });
+
+          await storage.set({ customCourseTypes, customTypeOrder, requiredCreditsConfig });
+          if(overridesChanged) await storage.set({ courseOverrides });
+
+          await processData();
+          renderTable();
+          renderSummary();
+        }
+      });
+    });
+
     attachDragAndDrop();
   }
 
@@ -442,6 +425,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     summaryBody.querySelectorAll('.type-row').forEach(row => {
       row.addEventListener('dragstart', (e) => {
+        // Prevent drag on inputs/buttons
+        if(e.target.tagName === 'INPUT' || e.target.tagName === 'BUTTON') {
+            e.preventDefault();
+            return;
+        }
         draggedRow = row;
         e.dataTransfer.effectAllowed = 'move';
         setTimeout(() => row.classList.add('dragging'), 0);
@@ -500,9 +488,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       renderSummary();
     }
   });
-
-  document.getElementById("uploadBtn").addEventListener("click", () => document.getElementById("upload-html").click());
-  document.getElementById("upload-html").addEventListener("change", handleFileUpload);
 
   // --- PDF Download Handling ---
   document.getElementById("downloadBtn").addEventListener("click", () => {

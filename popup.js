@@ -30,8 +30,16 @@ themeToggle.addEventListener('change', () => {
     // Event listener for the "Fetch" button
     fetchBtn.addEventListener('click', async () => {
         fetchBtn.style.display = 'none';
+        
         const gradesBtn = document.getElementById('fetchGradesBtn');
-    if (gradesBtn) gradesBtn.style.display = 'none';
+        if (gradesBtn) gradesBtn.style.display = 'none';
+
+        const feedbackBtn = document.getElementById('submitFeedbackBtn');
+        if (feedbackBtn) feedbackBtn.style.display = 'none';
+        
+        const statusEl = document.getElementById('status');
+        if (statusEl) statusEl.style.display = 'none';
+
         loader.style.display = 'flex';
 
         let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
@@ -151,12 +159,12 @@ document.getElementById('submitFeedbackBtn').addEventListener('click', async () 
             target: { tabId: tab.id },
             function: findAndSubmitFeedback
         });
-        status.innerHTML = 'Check console for log!';
+        status.innerHTML = 'Refresh the page to check';
     } catch (error) {
         status.innerHTML = `Error: ${error.message}`;
     } finally {
         feedbackBtn.disabled = false;
-        feedbackBtn.textContent = 'Find & Submit Feedback';
+        feedbackBtn.textContent = 'Submit Feedback';
     }
 });
 

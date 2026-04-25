@@ -110,8 +110,6 @@
     }
     .btn-dark { background: #1a1a1a; }
     .btn-dark:hover { background: #2d2d2d; transform: translateY(-2px); box-shadow: 0 8px 16px rgba(0,0,0,0.15); }
-    .btn-gray { background: #4b5563; }
-    .btn-gray:hover { background: #374151; transform: translateY(-2px); box-shadow: 0 8px 16px rgba(0,0,0,0.15); }
     .btn-outline { background: transparent; color: #1a1a1a; border: 2px solid #1a1a1a; }
     .btn-outline:hover { background: #f3f4f6; transform: translateY(-2px); }
 
@@ -170,16 +168,13 @@
       </section>
     </div>
 
-    <input type="file" id="upload-html" accept=".html" style="display: none;" />
     <input type="file" id="import-config-file" accept=".json" style="display: none;" />
 
     <div class="btn-container" id="bottom-controls">
-      <button class="main-btn btn-gray" id="uploadBtn">📄 Update Base HTML Report</button>
-      <button class="main-btn btn-outline" id="importConfigBtn">📥 Import Template</button>
-      <button class="main-btn btn-outline" id="exportConfigBtn">📤 Export Template</button>
+      <button class="main-btn btn-outline" id="importConfigBtn">📥 Import Curriculum</button>
+      <button class="main-btn btn-outline" id="exportConfigBtn">📤 Export Curriculum</button>
       <button class="main-btn btn-dark" id="downloadBtn">⬇️ Download PDF</button>
     </div>
-
 
   <script src="jspdf.umd.min.js"></script>
   <script src="html2canvas.min.js"></script>
