@@ -40,8 +40,6 @@ This extension works on Google Chrome and other Chromium-based browsers (Edge, B
 
 ## Usage Guide
 
-### General Features
-
 * All these buttons are available after clicking on the extension from the extensions list.
 
 ### **Viewing grades of courses without feedback:**
@@ -100,6 +98,23 @@ The extension includes a built-in GPA planner and report formatter. All data is 
         
     - **Download PDF**: Exports your customized report as a clean, print-ready document.
         
+
+---
+## Code Organization
+
+Each feature now has a dedicated file for easier navigation:
+
+* `timetable.js` - popup timetable scraping, selection UI, and `.ics` export.
+* `grade_fetch.js` - popup trigger for background grade fetching.
+* `feedback_submitter.js` - popup trigger and submission flow for feedback.
+* `login_captcha_autofill.js` - CAPTCHA autofill on login pages.
+* `grade_fill.js` - fills missing grades on course history pages.
+* `gpa_inject.js` - injects GPA display script into course history pages.
+* `gpa_display.js` - SGPA/CGPA/credits rendering on the course history page.
+* `credits_calculator_launcher.js` - adds the "Open credits calculator" button and launches report page.
+* `grade_fetch_sw.js` - service worker logic for grade catalog/history fetch.
+* `credits_calculator.html` - credits calculator page shell.
+* `credits_calculator.js` - credits calculator/report editor behavior.
 
 ---
 

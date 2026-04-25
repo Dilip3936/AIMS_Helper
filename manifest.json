@@ -18,7 +18,7 @@
   ],
 
   "background": {
-    "service_worker": "sw.js"
+    "service_worker": "grade_fetch_sw.js"
   },
 
   "content_scripts": [
@@ -27,14 +27,14 @@
         "https://aims.iith.ac.in/aims/",
         "https://aims.iith.ac.in/aims/login/loginHome"
       ],
-      "js": ["captcha.js"],
+      "js": ["login_captcha_autofill.js"],
       "run_at": "document_idle"
     },
     {
       "matches": [
         "https://aims.iith.ac.in/aims/courseReg/myCrsHistoryPage*"
       ],
-      "js": ["gpa_inject.js", "content.js"],
+      "js": ["gpa_inject.js", "credits_calculator_launcher.js", "grade_fill.js"],
       "run_at": "document_idle"
     }
   ],
@@ -43,7 +43,7 @@
     {
       "resources": [
         "gpa_display.js",
-        "gpa_report.html",
+        "credits_calculator.html",
         "jspdf.umd.min.js",
         "html2canvas.min.js"],
       "matches": ["https://aims.iith.ac.in/*"]
