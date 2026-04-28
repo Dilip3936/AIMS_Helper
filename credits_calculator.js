@@ -151,6 +151,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const type = e.target.dataset.type;
     requiredCreditsConfig[type] = parseFloat(e.target.value) || 0;
     await storage.set({ requiredCreditsConfig });
+    renderSummary();
   }
 
   document.getElementById("undoBtn").addEventListener("click", async () => {
@@ -352,15 +353,17 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     Object.entries(degreeData).forEach(([degree, degreeInfo]) => {
       const cgpa = degreeInfo.totalGradedCredits > 0 ? (degreeInfo.totalGradePoints / degreeInfo.totalGradedCredits).toFixed(2) : "0.00";
+      const totalTargetCredits = Object.values(requiredCreditsConfig).reduce((sum, v) => sum + (parseFloat(v) || 0), 0);
+      const targetStr = totalTargetCredits > 0 ? ` <span style="font-size:13px; color:#9ca3af; font-weight:400;">/ Target: ${totalTargetCredits.toFixed(1)}</span>` : "";
 
       summaryBody.innerHTML += `
         <tr><td colspan="4" style="font-weight: 600; padding: 12px 20px; background-color: #f3f4f6;">${degree}</td></tr>
         <tr><td>CGPA</td><td colspan="3"><strong>${cgpa}</strong></td></tr>
-        <tr><td>Total Credits Registered</td><td colspan="3"><strong>${degreeInfo.totalAllCredits.toFixed(1)}</strong></td></tr>
+        <tr><td>Total Credits Registered</td><td colspan="3"><strong>${degreeInfo.totalAllCredits.toFixed(1)}</strong>${degreeInfo.totalGradedCredits === degreeInfo.totalAllCredits ? targetStr : ""}</td></tr>
       `;
 
       if (degreeInfo.totalGradedCredits !== degreeInfo.totalAllCredits) {
-        summaryBody.innerHTML += `<tr><td>Graded Credits</td><td colspan="3"><strong>${degreeInfo.totalGradedCredits.toFixed(1)}</strong></td></tr>`;
+        summaryBody.innerHTML += `<tr><td>Graded Credits</td><td colspan="3"><strong>${degreeInfo.totalGradedCredits.toFixed(1)}</strong>${targetStr}</td></tr>`;
       }
 
       summaryBody.innerHTML += `<tr>
@@ -495,10 +498,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     const element = document.querySelector(".report");
     const bottomControls = document.getElementById("bottom-controls");
     const controlsBar = document.getElementById("controls-bar");
+    const controlsBar2 = document.getElementById("controls-bar-2");
     const hiddenElements = element.querySelectorAll(".hide-print");
 
     if(bottomControls) bottomControls.style.display = "none";
     if(controlsBar) controlsBar.style.display = "none";
+    if(controlsBar2) controlsBar2.style.display = "none";
     hiddenElements.forEach(el => el.style.display = "none");
 
     const originalStyles = { boxShadow: element.style.boxShadow, borderRadius: element.style.borderRadius, overflow: element.style.overflow };
@@ -532,6 +537,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         element.style.boxShadow = originalStyles.boxShadow; element.style.borderRadius = originalStyles.borderRadius; element.style.overflow = originalStyles.overflow;
         if(bottomControls) bottomControls.style.display = "flex";
         if(controlsBar) controlsBar.style.display = "flex";
+        if(controlsBar2) controlsBar2.style.display = "flex";
         hiddenElements.forEach(el => el.style.display = "");
 
         document.querySelectorAll('.temp-pdf-span').forEach(span => span.remove());
@@ -545,4 +551,17 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 
   await processData(); renderTable(); renderSummary();
+});
+
+// --- Help Modal ---
+document.addEventListener("DOMContentLoaded", () => {
+  const helpBtn = document.getElementById("helpBtn");
+  const helpOverlay = document.getElementById("helpOverlay");
+  const helpClose = document.getElementById("helpClose");
+  if (helpBtn && helpOverlay && helpClose) {
+    helpBtn.addEventListener("click", () => helpOverlay.classList.add("open"));
+    helpClose.addEventListener("click", () => helpOverlay.classList.remove("open"));
+    helpOverlay.addEventListener("click", (e) => { if (e.target === helpOverlay) helpOverlay.classList.remove("open"); });
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape" && helpOverlay.classList.contains("open")) helpOverlay.classList.remove("open"); });
+  }
 });
