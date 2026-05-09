@@ -96,3 +96,9 @@ if (document.readyState === "loading") {
 } else {
   init();
 }
+
+chrome.runtime.onMessage.addListener((msg) => {
+  if (msg && msg.type === "GRADE_FETCH_DONE") {
+    fillOnce();
+  }
+});

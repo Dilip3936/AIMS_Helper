@@ -18,15 +18,15 @@ fetchGradesBtn?.addEventListener('click', async () => {
     try {
         const resp = await chrome.runtime.sendMessage({ type: "RUN_GRADE_FETCH", studentId });
         const notice = document.createElement('p');
-        notice.textContent = 'Please refresh the page to show the grades.';
+        notice.textContent = 'Grades updated on the page!';
         notice.style.marginTop = '8px';
-        notice.style.color = '#2563eb';
+        notice.style.color = '#16a34a';
         notice.style.fontWeight = '500';
 
         fetchGradesBtn.insertAdjacentElement('afterend', notice);
         fetchGradesBtn.style.display = 'none';
 
-        setTimeout(() => notice.remove(), 6000);
+        setTimeout(() => notice.remove(), 4000);
     } catch (e) {
         console.error('Failed to trigger grade fetch', e);
         const notice = document.createElement('p');

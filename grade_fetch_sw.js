@@ -96,10 +96,26 @@ async function runGradeFetch(studentId) {
   }
 }
 
+async function notifyHistoryTabs() {
+  try {
+    const tabs = await chrome.tabs.query({
+      url: "https://aims.iith.ac.in/aims/courseReg/myCrsHistoryPage*"
+    });
+    for (const tab of tabs) {
+      chrome.tabs.sendMessage(tab.id, { type: "GRADE_FETCH_DONE" }).catch(() => {});
+    }
+  } catch (e) {
+    console.warn("notifyHistoryTabs failed", e);
+  }
+}
+
 chrome.runtime.onMessage.addListener((msg, _sender, sendResponse) => {
   if (msg && msg.type === "RUN_GRADE_FETCH" && msg.studentId) {
     runGradeFetch(String(msg.studentId))
-      .then(() => sendResponse({ ok: true }))
+      .then(async () => {
+        await notifyHistoryTabs();
+        sendResponse({ ok: true });
+      })
       .catch(err => {
         console.error("grade fetch run failed", err);
         sendResponse({ ok: false, error: String(err) });
