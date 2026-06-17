@@ -25,15 +25,15 @@
   "content_scripts": [
     {
       "matches": [
-        "https://aims.iith.ac.in/aims/",
-        "https://aims.iith.ac.in/aims/login/loginHome"
+        "https://aims.iith.ac.in/aimswologin/",
+        "https://aims.iith.ac.in/aimswologin/login/loginHome"
       ],
       "js": ["login_captcha_autofill.js"],
       "run_at": "document_idle"
     },
     {
       "matches": [
-        "https://aims.iith.ac.in/aims/courseReg/myCrsHistoryPage*"
+        "https://aims.iith.ac.in/aimswologin/courseReg/myCrsHistoryPage*"
       ],
       "js": ["gpa_inject.js", "credits_calculator_launcher.js", "grade_fill.js"],
       "run_at": "document_idle"
