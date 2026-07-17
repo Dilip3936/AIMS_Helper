@@ -11,7 +11,7 @@ document.getElementById('submitFeedbackBtn').addEventListener('click', async () 
     try {
         const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
         
-        if (!tab.url.startsWith('https://aims.iith.ac.in/aimswologin/courseReg/myCrsHistoryPage')) {
+        if (!tab.url.startsWith('https://aims.iith.ac.in/aims/courseReg/myCrsHistoryPage')) {
             status.innerHTML = 'You are on wrong page';
             return;
         }
@@ -127,7 +127,7 @@ async function findAndSubmitFeedback() {
             
             const payload = { instArr };
             
-            const submitResponse = await fetch('https://aims.iith.ac.in/aimswologin/fmCourseFb/courseFeedback', {
+            const submitResponse = await fetch('https://aims.iith.ac.in/aims/fmCourseFb/courseFeedback', {
                 method: 'POST',
                 credentials: 'include',
                 headers: {
@@ -135,7 +135,7 @@ async function findAndSubmitFeedback() {
                     'X-Requested-With': 'XMLHttpRequest',
                     'Accept': '*/*',
                     'Origin': 'https://aims.iith.ac.in',
-                    'Referer': `https://aims.iith.ac.in/aimswologin/fmCourseFb/courseFeedback/0/${courseId}`
+                    'Referer': `https://aims.iith.ac.in/aims/fmCourseFb/courseFeedback/0/${courseId}`
                 },
                 body: 'object=' + encodeURIComponent(JSON.stringify(payload))
             });

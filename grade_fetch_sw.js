@@ -5,7 +5,7 @@ function minimalHeaders() {
 }
 
 async function fetchAndStoreGradeCatalog(studentId) {
-  const url = `https://aims.iith.ac.in/aimswologin/courseReg/loadStdCrsHistSrchFlds/${encodeURIComponent(studentId)}`;
+  const url = `https://aims.iith.ac.in/aims/courseReg/loadStdCrsHistSrchFlds/${encodeURIComponent(studentId)}`;
   const res = await fetch(url, { method: "GET", headers: minimalHeaders(), credentials: "include" });
   if (!res.ok) {
     console.error("grade catalog fetch failed", res.status);
@@ -28,7 +28,7 @@ async function fetchAndStoreGradeCatalog(studentId) {
 }
 
 function buildHistoryUrl({ studentId, gradeId }) {
-  const base = "https://aims.iith.ac.in/aimswologin/courseReg/loadMyCoursesHistroy";
+  const base = "https://aims.iith.ac.in/aims/courseReg/loadMyCoursesHistroy";
   const gradeArrayJson = JSON.stringify([String(gradeId)]);
   const params = new URLSearchParams({
     studentId: String(studentId),
@@ -99,7 +99,7 @@ async function runGradeFetch(studentId) {
 async function notifyHistoryTabs() {
   try {
     const tabs = await chrome.tabs.query({
-      url: "https://aims.iith.ac.in/aimswologin/courseReg/myCrsHistoryPage*"
+      url: "https://aims.iith.ac.in/aims/courseReg/myCrsHistoryPage*"
     });
     for (const tab of tabs) {
       chrome.tabs.sendMessage(tab.id, { type: "GRADE_FETCH_DONE" }).catch(() => {});
